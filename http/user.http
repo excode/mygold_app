@@ -1,0 +1,159 @@
+@HOST =https://exuser.azurewebsites.net
+@AUTH = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjZkODYxNjEzYjU3YjA1NjIwN2YzYTQiLCJjb250YWN0TnVtYmVyIjoiNjAxNzY3MDE5NDYiLCJjb250YWN0TnVtYmVyVHlwZSI6MCwibmFtZSI6IkthbGFtIEF6YWQiLCJlbWFpbCI6IiIsInZlcmlmaWVkIjoxLCJjb3VudHJ5IjoiTVkiLCJ1c2VybmFtZSI6IjYwMTc2NzAxOTQ2Iiwib3RwIjoiNjM4ODgxIiwicHJvamVjdF9jb2RlIjoiNjY2ZDRjYTI1NWUwYzQ1YjEzYWJkM2ZkIiwicHJvamVjdF9uYW1lIjoiTXlHb2xkIiwicHJvamVjdF9lbWFpbCI6Im5vLXJlcGx5QG15Z29sZC5haSIsInByb2plY3RfY29udGFjdE51bWJlciI6IjYwMTc2NzAxOTQ2IiwicmVmcmVzaEtleSI6IldyMkhpRUo2ZHZ6ZjZkalowbDlYaUE9PSIsImlhdCI6MTcxODYzMDg1OSwiZXhwIjoxNzE4NjMyNjU5fQ.0IyHZ9dbtBzxHCvicH0RCOhddc0SldlDexXx8TkkcVQ
+@AUTH_K = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjZlNmFjYjA0ODc5Nzg4NzA5MTNmY2UiLCJjb250YWN0TnVtYmVyIjoia2F6YWQ3OUBnbWFpbC5jb20iLCJjb250YWN0TnVtYmVyVHlwZSI6MSwibmFtZSI6IkthbGFtIEF6YWQiLCJlbWFpbCI6ImthemFkNzlAZ21haWwuY29tIiwiY291bnRyeSI6Im15IiwidXNlcm5hbWUiOiJrYXphZDc5QGdtYWlsLmNvbSIsIm90cCI6IjU0MzQxNiIsInByb2plY3RfY29kZSI6IjY2NmQ0Y2EyNTVlMGM0NWIxM2FiZDNmZCIsInByb2plY3RfbmFtZSI6Ik15R29sZCIsInByb2plY3RfZW1haWwiOiJuby1yZXBseUBteWdvbGQuYWkiLCJwcm9qZWN0X2NvbnRhY3ROdW1iZXIiOiI2MDE3NjcwMTk0NiIsInZlcmlmaWVkIjoxLCJpYXQiOjE3MTg2Mjc5MTEsImV4cCI6MTcxODYyOTcxMX0.uqSqDijQSx9RzVC6GUFprz3yR6vra4a0mzK-XRw0SHE
+
+@REF_K=6e6y6Jeh6baGccbi0O4i8J7I9U7z8I817N0i9I1s3IfncRe5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjZlNmFjYjA0ODc5Nzg4NzA5MTNmY2UiLCJjb250YWN0TnVtYmVyIjoia2F6YWQ3OUBnbWFpbC5jb20iLCJjb250YWN0TnVtYmVyVHlwZSI6MSwibmFtZSI6IkthbGFtIEF6YWQiLCJlbWFpbCI6ImthemFkNzlAZ21haWwuY29tIiwidmVyaWZpZWQiOjAsImNvdW50cnkiOiJteSIsInVzZXJuYW1lIjoia2F6YWQ3OUBnbWFpbC5jb20iLCJvdHAiOiI1NDM0MTYiLCJwcm9qZWN0X2NvZGUiOiI2NjZkNGNhMjU1ZTBjNDViMTNhYmQzZmQiLCJwcm9qZWN0X25hbWUiOiJNeUdvbGQiLCJwcm9qZWN0X2VtYWlsIjoibm8tcmVwbHlAbXlnb2xkLmFpIiwicHJvamVjdF9jb250YWN0TnVtYmVyIjoiNjAxNzY3MDE5NDYiLCJyZWZyZXNoS2V5IjoiU21wVnNPd1Y4YTU0WDRMczl2YUFOQT09IiwiaWF0IjoxNzE4NTQ1MjkzfQ._ispR7weGk4IHVBVw_0swxJPy8I1X8kT-kL-i1lr82E.02
+@REF=6e6y6Jdh8b6G1c6i1O3ibJ5I7Ubz0I516N2i0I7sfI3naR45cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjZkODYxNjEzYjU3YjA1NjIwN2YzYTQiLCJjb250YWN0TnVtYmVyIjoiNjAxNzY3MDE5NDYiLCJjb250YWN0TnVtYmVyVHlwZSI6MCwibmFtZSI6IkthbGFtIEF6YWQiLCJlbWFpbCI6IiIsInZlcmlmaWVkIjoxLCJjb3VudHJ5IjoiTVkiLCJ1c2VybmFtZSI6IjYwMTc2NzAxOTQ2Iiwib3RwIjoiNjM4ODgxIiwicHJvamVjdF9jb2RlIjoiNjY2ZDRjYTI1NWUwYzQ1YjEzYWJkM2ZkIiwicHJvamVjdF9uYW1lIjoiTXlHb2xkIiwicHJvamVjdF9lbWFpbCI6Im5vLXJlcGx5QG15Z29sZC5haSIsInByb2plY3RfY29udGFjdE51bWJlciI6IjYwMTc2NzAxOTQ2IiwicmVmcmVzaEtleSI6IldyMkhpRUo2ZHZ6ZjZkalowbDlYaUE9PSIsImlhdCI6MTcxODYzMDg1OX0.NMKB8qSP_u8lnIPlgUNOlsVUn-QW7boOxK-wOr5toRs.02
+@REF_K79 =6e6y7J0h2b6Gac4i5O5i1J7I6U1z1I116N6i6I9saI3nfRb5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjcwMjZhNDU1MTc2MTExNjY2OWEzZmIiLCJjb250YWN0TnVtYmVyIjoia2F6YWQ3OUBnbWFpbC5jb20iLCJjb250YWN0TnVtYmVyVHlwZSI6MSwibmFtZSI6IkthbGFtIEF6YWQiLCJlbWFpbCI6ImthemFkNzlAZ21haWwuY29tIiwidmVyaWZpZWQiOjAsImNvdW50cnkiOiJteSIsInVzZXJuYW1lIjoia2F6YWQ3OUBnbWFpbC5jb20iLCJvdHAiOiIzODY2NzAiLCJwcm9qZWN0X2NvZGUiOiI2NjZkNGNhMjU1ZTBjNDViMTNhYmQzZmQiLCJwcm9qZWN0X25hbWUiOiJNeUdvbGQiLCJwcm9qZWN0X2VtYWlsIjoibm8tcmVwbHlAbXlnb2xkLmFpIiwicHJvamVjdF9jb250YWN0TnVtYmVyIjoiNjAxNzY3MDE5NDYiLCJyZWZyZXNoS2V5IjoiTVdsaGs1YW1kTEJJeFZQY0NOb2FPdz09IiwiaWF0IjoxNzE4NjI2MDEyfQ.xOjszWgtjCdU52T9RwSppVIOviTS_uSiYTZZqBTvlUU.02
+@AUTH_K79 = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjcwMjZhNDU1MTc2MTExNjY2OWEzZmIiLCJjb250YWN0TnVtYmVyIjoia2F6YWQ3OUBnbWFpbC5jb20iLCJjb250YWN0TnVtYmVyVHlwZSI6MSwibmFtZSI6IkthbGFtIEF6YWQiLCJlbWFpbCI6ImthemFkNzlAZ21haWwuY29tIiwiY291bnRyeSI6Im15IiwidXNlcm5hbWUiOiJrYXphZDc5QGdtYWlsLmNvbSIsIm90cCI6IjM4NjY3MCIsInByb2plY3RfY29kZSI6IjY2NmQ0Y2EyNTVlMGM0NWIxM2FiZDNmZCIsInByb2plY3RfbmFtZSI6Ik15R29sZCIsInByb2plY3RfZW1haWwiOiJuby1yZXBseUBteWdvbGQuYWkiLCJwcm9qZWN0X2NvbnRhY3ROdW1iZXIiOiI2MDE3NjcwMTk0NiIsInZlcmlmaWVkIjoxLCJpYXQiOjE3MTg2MzIyMTEsImV4cCI6MTcyMTIyNDIxMX0.lVQAb78lAn_RJkHCNvtkbLIIlTYF-KMh1l1kAewMTMY
+###
+POST {{HOST}}/reg2 HTTP/1.1
+project_code:666d4ca255e0c45b13abd3fd
+content-type: application/json
+
+{
+ "contactNumber" : "kazad79@gmail.com" ,
+ "name" : "Kalam Azad",
+ "country":"my",
+ "password":"iloveU1"
+}
+
+
+
+
+
+###
+POST {{HOST}}/auth HTTP/1.1
+project_code:666d4ca255e0c45b13abd3fd
+content-type: application/json
+
+{
+ "username" : "kazad79@gmail.com" ,
+ "password":"iloveU1"
+}
+###
+POST {{HOST}}/authVerify HTTP/1.1
+project_code:666d4ca255e0c45b13abd3fd
+content-type: application/json
+
+{
+ "username" : "kazad79@gmail.com" ,
+ "otp":"764898"
+}
+
+
+
+###
+POST {{HOST}}/refreshMytoken HTTP/1.1
+project_code:666d4ca255e0c45b13abd3fd
+content-type: application/json
+
+{
+ "refresh_token" : "{{REF_K79}}" 
+
+}
+###
+POST {{HOST}}/refreshMytoken HTTP/1.1
+project_code:666d4ca255e0c45b13abd3fd
+content-type: application/json
+
+{
+ "refresh_token" : "{{REF_K79}}"
+}
+###
+//LOGIN ENDPOINT TO GET AUTH TOKEN
+POST {{HOST}}/resendOTP HTTP/1.1
+project_code:666d4ca255e0c45b13abd3fd
+content-type: application/json
+
+{
+"contactNumber":"601114304572",
+"userId":"666ea49a866cf9d2443912a5"
+}
+
+###
+//LOGIN ENDPOINT TO GET AUTH TOKEN
+POST {{HOST}}/resendOTPFP HTTP/1.1
+project_code:666d4ca255e0c45b13abd3fd
+content-type: application/json
+
+{
+"contactNumber":"kazad79@gmail.com"
+}
+
+###
+POST {{HOST}}/changePassword2 HTTP/1.1
+project_code:666d4ca255e0c45b13abd3fd
+content-type: application/json
+
+{
+"contactNumber":"60176701946",
+"otp":"336152",
+"newPassword":"123456",
+"confirmPassword":"123456"
+
+}
+
+###
+POST {{HOST}}/changePassword HTTP/1.1
+project_code:666d4ca255e0c45b13abd3fd
+Authorization: Bearer {{AUTH_K79}}
+content-type: application/json
+
+{
+
+"password":"iloveU1",
+"newPassword":"123456",
+"confirmPassword":"123456"
+
+}
+
+
+###
+GET {{HOST}}/webPass HTTP/1.1
+project_code:666d4ca255e0c45b13abd3fd
+Authorization: Bearer {{AUTH_K79}}
+content-type: application/json
+
+
+###
+GET {{HOST}}/users HTTP/1.1
+project_code:666d4ca255e0c45b13abd3fd
+Authorization: Bearer {{AUTH_K79}}
+content-type: application/json
+
+###
+GET {{HOST}}/userInfo/60176701946 HTTP/1.1
+project_code:666d4c6c55e0c45b13abd3fc
+Authorization: Bearer {{AUTH_K79}}
+content-type: application/json
+###
+GET {{HOST}}/userInfo HTTP/1.1
+project_code:666d4ca255e0c45b13abd3fd
+Authorization: Bearer {{AUTH_K}}
+content-type: application/json
+
+
+
+###
+PATCH  {{HOST}}/users HTTP/1.1
+project_code:666d4ca255e0c45b13abd3fd
+Authorization: Bearer {{AUTH_K79}}
+content-type: application/json
+
+{
+"mobile":"60176701949"
+
+}
+
+
+###
+PATCH  {{HOST}}/users/verify HTTP/1.1
+project_code:666d4ca255e0c45b13abd3fd
+Authorization: Bearer {{AUTH_K79}}
+content-type: application/json
+
+{
+"otp":"037651"
+
+}
