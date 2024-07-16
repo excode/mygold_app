@@ -14,9 +14,11 @@ class AppServices with ChangeNotifier {
     String password = "TeachMeLang!%";
     EmailPasswordAuthProvider authProvider = EmailPasswordAuthProvider(app);
     // await authProvider.registerUser(email, password);
-    User loggedInUser =
-        await app.logIn(Credentials.emailPassword(email, password));
+    User loggedInUser = await app.logIn(Credentials.apiKey(
+        "HVeFCKOZMPaGucGg3UTISLCd98nxJHvGubKEX5I997ku4lwKqqAnxwitrmDs50UV"));
     currentUser = loggedInUser;
+    print("1 AM LOGGED");
+    print(loggedInUser.id);
     notifyListeners();
     return loggedInUser;
   }

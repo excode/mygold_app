@@ -9,13 +9,21 @@ class EditTextField extends StatefulWidget {
   final bool isPassword;
   final TextEditingController? controller;
   final IconData? prefixIcon;
+  final double radius;
+  final EdgeInsets edgeInsets;
+  final String? Function(String?)? validator;
+  final TextInputType? textInputType;
 
   const EditTextField(
       {super.key,
       required this.hintText,
       this.isPassword = false,
       this.controller,
-      this.prefixIcon});
+      this.prefixIcon,
+      this.radius = 30,
+      this.textInputType = TextInputType.text,
+      this.edgeInsets = const EdgeInsets.fromLTRB(26, 12, 4, 12),
+      this.validator});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -40,19 +48,20 @@ class _EditTextFieldState extends State<EditTextField> {
         controller: widget.controller,
         style: primaryTextStyle(size: 18),
         obscureText: _obscureText,
+        keyboardType: TextInputType.text,
         decoration: InputDecoration(
           labelText: widget.hintText,
-          contentPadding: const EdgeInsets.fromLTRB(26, 18, 4, 18),
+          contentPadding: widget.edgeInsets,
           hintText: widget.hintText,
           filled: true,
           fillColor: theme.colorScheme.surface,
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(40),
+            borderRadius: BorderRadius.circular(widget.radius),
             borderSide:
                 BorderSide(color: theme.colorScheme.secondary, width: 0.0),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(40),
+            borderRadius: BorderRadius.circular(widget.radius),
             borderSide:
                 BorderSide(color: theme.colorScheme.secondary, width: 0.0),
           ),
@@ -74,6 +83,7 @@ class _EditTextFieldState extends State<EditTextField> {
                 )
               : null,
         ),
+        validator: widget.validator,
       ),
     );
   }

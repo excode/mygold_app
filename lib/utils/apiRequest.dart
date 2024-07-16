@@ -21,11 +21,12 @@ class ApiRequest {
 
   Future<ResponseData> send() async {
     late http.Response response;
-
+    late Map<String, dynamic> querystring =
+        requestType == RequestType.get ? data : {};
     String body = "";
     var url = Config.remoteServer
-        ? Uri.https(host, path)
-        : Uri.http("${Config.Ip}:${Config.port}", path);
+        ? Uri.https(host, path, querystring)
+        : Uri.http("${Config.Ip}:${Config.port}", path, querystring);
     final headers = <String, String>{
       "Content-Type": "application/json",
       "project_code": Config.projectCode
@@ -34,10 +35,12 @@ class ApiRequest {
     if (secured) {
       LocalStore localStore = LocalStore();
       var storeValue = await localStore.read(Config.token, isList: false);
-      Map<String, dynamic> storeObj =
-          convert.jsonDecode(storeValue) as Map<String, dynamic>;
+      //Map<String, dynamic> storeObj =
+      // convert.jsonDecode(storeValue) as Map<String, dynamic>;
 
-      headers['Authorization'] = "Bearer  ${storeObj["accessToken"]}";
+      headers['Authorization'] = "Bearer $storeValue";
+      print(storeValue);
+      //print(storeValue);
     }
     if (data.keys.isNotEmpty) {
       body = convert.jsonEncode(data);
@@ -53,6 +56,7 @@ class ApiRequest {
             url,
             headers: headers,
           );
+          print("*** I M AHERE");
         } else if (requestType == RequestType.post) {
           response = await http.post(url, headers: headers, body: body);
         } else if (requestType == RequestType.patch) {
@@ -60,15 +64,24 @@ class ApiRequest {
         } else if (requestType == RequestType.delete) {
           response = await http.delete(url, headers: headers, body: body);
         }
-        var jsonResponse =
-            convert.jsonDecode(response.body) as Map<String, dynamic>;
-        if (response.statusCode == 200 ||
-            response.statusCode == 201 ||
-            response.statusCode == 204) {
+        // print(response.headers);
+        // print(response.body);
+        //  print(response.statusCode);
+        if (response.statusCode == 200 || response.statusCode == 201) {
+          var jsonResponse =
+              convert.jsonDecode(response.body) as Map<String, dynamic>;
+
+          print(jsonResponse);
           return ResponseData(data: jsonResponse, status: true);
+        } else if (response.statusCode == 204) {
+          return ResponseData(data: {}, status: true);
         } else if (response.statusCode == 403) {
           return ResponseData(forceLogin: true);
         } else {
+          var jsonResponse =
+              convert.jsonDecode(response.body) as Map<String, dynamic>;
+
+          // print(jsonResponse);
           var errors = getErrors(jsonResponse);
 
           return ResponseData(error: errors);
@@ -138,13 +151,13 @@ class ApiRequest {
   }
 
   String getErrors(Map<String, dynamic> jsonResponse) {
-    if (jsonResponse["errors"]) {
+    if (jsonResponse.containsKey("errors")) {
       return jsonResponse["errors"];
-    } else if (jsonResponse["error"]) {
+    } else if (jsonResponse.containsKey("error")) {
       return jsonResponse["error"];
-    } else if (jsonResponse["err"]) {
+    } else if (jsonResponse.containsKey("err")) {
       return jsonResponse["err"];
-    } else if (jsonResponse["errs"]) {
+    } else if (jsonResponse.containsKey("errs")) {
       return jsonResponse["errs"];
     } else {
       return "something is wrong";

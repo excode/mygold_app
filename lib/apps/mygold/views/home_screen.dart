@@ -62,7 +62,7 @@ class _CookifyHomeScreenState extends State<CookifyHomeScreen> {
                 children: [
                   Container(
                     margin: MySpacing.x(16),
-                    child: MyText.headlineLarge(user.name,
+                    child: MyText.headlineLarge("user.name",
                         color: customTheme.cookifyPrimary, fontWeight: 800),
                   ),
                   Container(

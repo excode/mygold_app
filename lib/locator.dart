@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:mygold/apps/mygold/controller/mygold_controller.dart';
 import 'package:mygold/helpers/theme/app_notifier.dart';
 import 'package:mygold/realm/app_services.dart';
 import 'package:mygold/realm/realm_services.dart';
@@ -14,6 +15,7 @@ void setupLocator() {
       () => RealmServices(getIt<AppServices>().app));
 
   getIt.registerLazySingleton<AppNotifier>(() => AppNotifier());
+  getIt.registerLazySingleton<MyGoldService>(() => MyGoldService());
 }
 
 class CConfig {
@@ -22,9 +24,11 @@ class CConfig {
   late Uri baseUrl;
 
   CConfig._create() {
-    appId = "excode-sync-hhtmcal";
+    //appId = "mygold-user-hvvsxfy";
+    appId = "mygold-zcghjzi";
     atlasUrl =
         "https://cloud.mongodb.com/links/5ff12f06cb577d031e7bedf5/explorer/excode-prod/database/collection/find";
+
     baseUrl = Uri.parse("https://services.cloud.mongodb.com");
   }
 

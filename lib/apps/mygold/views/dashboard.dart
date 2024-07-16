@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mygold/apps/mygold/views/bank/bank_list.dart';
 import 'package:mygold/apps/mygold/views/home_screen.dart';
 import 'package:mygold/apps/mygold/views/meal_plan_screen.dart';
 import 'package:mygold/apps/mygold/views/profile_screen.dart';
@@ -71,7 +72,7 @@ class _DashboardAppState extends State<Dashboard> {
               activeTitleColor: theme.primaryColor,
             ),
             MyBottomNavigationBarItem(
-              page: CookifyShowcaseScreen(),
+              page: const BankList(),
               icon: Icon(
                 Icons.handshake_outlined,
                 color: theme.primaryColor,

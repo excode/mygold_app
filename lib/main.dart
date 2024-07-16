@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:mygold/apps/auth/controller/member_controller.dart';
+import 'package:mygold/apps/mygold/controller/mygold_controller.dart';
 import 'package:mygold/helpers/localizations/app_localization_delegate.dart';
 import 'package:mygold/helpers/localizations/language.dart';
 import 'package:mygold/helpers/theme/app_notifier.dart';
@@ -61,6 +62,9 @@ Future<void> main() async {
         ChangeNotifierProvider(
           create: (context) => MemberService(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => getIt<MyGoldService>(),
+        ),
         // ChangeNotifierProvider<CConfig>(create: (_) => realmConfig),
         ChangeNotifierProvider<AppServices>(
             create: (_) => getIt<AppServices>()),
@@ -72,7 +76,8 @@ Future<void> main() async {
               return appServices.app.currentUser != null
                   ? RealmServices(appServices.app)
                   : null;
-            })
+            }),
+
         // Add other providers here if needed
       ],
       child: MyApp(),

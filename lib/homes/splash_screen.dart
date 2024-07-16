@@ -85,7 +85,7 @@ class _SplashScreenState extends State<SplashScreen> {
     }
     final RealmServices realmServices = GetIt.instance<RealmServices>();
     final appServices = GetIt.instance<AppServices>();
-
+    print("REALM LOGING");
     await appServices.registerUserEmailPassword();
     const lang = "en";
     final result = await realmServices.searchLanguage(lang);

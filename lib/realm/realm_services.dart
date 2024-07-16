@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:mygold/realm/bank/bank.dart';
+import 'package:mygold/realm/mygold_user.dart';
 import 'package:mygold/realm/schemas.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:realm/realm.dart';
@@ -9,23 +11,28 @@ import 'package:realm/realm.dart';
 class RealmServices with ChangeNotifier {
   static const String queryAllName = "getAllItemsSubscription";
   static const String queryMyItemsName = "getMyItemsSubscription";
+  static const String queryMyBankName = "getMyBanksSubscription";
 
   bool showAll = false;
+  bool showBank = true;
   bool offlineModeOn = false;
   bool isWaiting = false;
   late Realm realm;
   User? currentUser;
+  MyGoldUser? myGoldUser;
   App app;
 
   RealmServices(this.app) {
+    print("I AM INIT ......");
     if (app.currentUser == null) {}
     if (app.currentUser != null || currentUser != app.currentUser) {
       currentUser ??= app.currentUser;
 
-      realm = Realm(Configuration.flexibleSync(currentUser!, [Lang.schema]));
+      realm = Realm(Configuration.flexibleSync(
+          currentUser!, [Lang.schema, Banks.schema]));
       showAll = (realm.subscriptions.findByName(queryAllName) != null);
-      print("XXXXXXX");
-      print(currentUser?.id);
+      showBank = (realm.subscriptions.findByName(queryMyBankName) != null);
+
       if (realm.subscriptions.isEmpty) {
         updateSubscriptions();
       }
@@ -33,34 +40,19 @@ class RealmServices with ChangeNotifier {
   }
 
   Future<void> updateSubscriptions() async {
+    myGoldUser = await MyGoldUser.fromSecureStorage();
     realm.subscriptions.update((mutableSubscriptions) {
       mutableSubscriptions.clear();
-
+      print("WELCOME");
+      print(myGoldUser?.email);
       mutableSubscriptions.add(
           realm.query<Lang>(r'owner_id == $0', [currentUser?.id]),
           name: queryMyItemsName);
+      mutableSubscriptions.add(
+          realm.query<Banks>(r'createby == $0', [myGoldUser?.email]),
+          name: queryMyBankName);
     });
 
-    realm
-        .query<Lang>(r'owner_id == $0', [currentUser?.id])
-        .changes
-        .listen((changes) {
-          print(")))))))))4444444)))))))");
-          changes.inserted.forEach((c) {
-            // Handle new additions
-            print('New Lang object added: ${c}');
-          });
-
-          changes.modified.forEach((c) {
-            // Handle modifications
-            print('Lang object modified: ${c}');
-          });
-
-          changes.deleted.forEach((c) {
-            // Handle deletions
-            print('Lang object deleted: ${c}');
-          });
-        });
     await realm.subscriptions.waitForSynchronization();
   }
 
@@ -82,16 +74,16 @@ class RealmServices with ChangeNotifier {
   }
 
   Future<void> switchSubscription(bool value) async {
-    showAll = value;
-    if (!offlineModeOn) {
-      try {
-        isWaiting = true;
-        notifyListeners();
-        await updateSubscriptions();
-      } finally {
-        isWaiting = false;
-      }
+    showBank = value;
+    // if (!offlineModeOn) {
+    try {
+      isWaiting = true;
+      notifyListeners();
+      await updateSubscriptions();
+    } finally {
+      isWaiting = false;
     }
+    //  }
     notifyListeners();
   }
 
@@ -146,5 +138,10 @@ class RealmServices with ChangeNotifier {
     // Write JSON to file
     File jsonFile = File(filePath);
     await jsonFile.writeAsString(json.encode(jsonMap));
+  }
+
+  Future<List<T>> getList<T extends RealmObject>() async {
+    final list = realm.all<T>();
+    return list.toList();
   }
 }

@@ -1,9 +1,9 @@
 {
-    "appId": "excode-sync-hhtmcal",
-    "appUrl": "https://services.cloud.mongodb.com/groups/5ff12f06cb577d031e7bedf5/apps/667a80025222be4c63c057f0",
+    "appId": "mygold-user-hvvsxfy",
+    "appUrl": "https://services.cloud.mongodb.com/groups/5ff12f06cb577d031e7bedf5/apps/668396f559f0f9d9e720ed0c",
     "baseUrl": "https://services.cloud.mongodb.com",
-    "clientApiBaseUrl": "https://ap-southeast-1.aws.services.cloud.mongodb.com",
-    "dataApiBaseUrl": "https://ap-southeast-1.aws.data.mongodb-api.com",
+    "clientApiBaseUrl": "https://southeastasia.azure.services.cloud.mongodb.com",
+    "dataApiBaseUrl": "https://southeastasia.azure.data.mongodb-api.com",
     "dataExplorerLink": "https://cloud.mongodb.com/links/5ff12f06cb577d031e7bedf5/explorer/excode-prod/database/collection/find",
     "dataSourceName": "mongodb-atlas"
 }
