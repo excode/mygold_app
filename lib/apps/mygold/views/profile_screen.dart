@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:mygold/apps/auth/controller/member_controller.dart';
 import 'package:mygold/full_apps/other/cookify/models/user.dart';
-import 'package:mygold/full_apps/other/cookify/views/splash_screen.dart';
 import 'package:mygold/helpers/theme/app_theme.dart';
 import 'package:mygold/helpers/widgets/my_button.dart';
 import 'package:mygold/helpers/widgets/my_container.dart';
 import 'package:mygold/helpers/widgets/my_spacing.dart';
 import 'package:mygold/helpers/widgets/my_text.dart';
+import 'package:provider/provider.dart';
 
 class CookifyProfileScreen extends StatefulWidget {
   @override
@@ -30,6 +31,7 @@ class _CookifyProfileScreenState extends State<CookifyProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final memberController = Provider.of<MemberService>(context);
     return Theme(
       data: theme.copyWith(
           colorScheme: theme.colorScheme
@@ -190,11 +192,8 @@ class _CookifyProfileScreenState extends State<CookifyProfileScreen> {
                   MySpacing.height(16),
                   Center(
                       child: MyButton.rounded(
-                    onPressed: () {
-                      Navigator.of(context, rootNavigator: true).pop(
-                        MaterialPageRoute(
-                            builder: (context) => CookifySplashScreen()),
-                      );
+                    onPressed: () async {
+                      await memberController.alertLog(context);
                     },
                     padding: MySpacing.xy(16, 16),
                     elevation: 2,

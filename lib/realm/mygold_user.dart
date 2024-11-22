@@ -7,13 +7,14 @@ class MyGoldUser {
   String email;
   int contactNumberType;
   String mobile;
+  String contactNumber;
 
-  MyGoldUser({
-    required this.userId,
-    required this.email,
-    required this.contactNumberType,
-    required this.mobile,
-  });
+  MyGoldUser(
+      {required this.userId,
+      required this.email,
+      required this.contactNumberType,
+      required this.mobile,
+      required this.contactNumber});
 
   static Future<MyGoldUser> fromSecureStorage() async {
     LocalStore localStore = LocalStore();
@@ -21,14 +22,24 @@ class MyGoldUser {
     if (authToken == null) {
       throw Exception('Auth token not found in secure storage');
     }
+    try {
+      Map<String, dynamic> decodedToken = JwtDecoder.decode(authToken);
 
-    Map<String, dynamic> decodedToken = JwtDecoder.decode(authToken);
-
-    return MyGoldUser(
-      userId: decodedToken['userId'] as String,
-      email: decodedToken['email'] as String,
-      contactNumberType: decodedToken['contactNumberType'] as int,
-      mobile: decodedToken['mobile'] as String,
-    );
+      return MyGoldUser(
+        userId: decodedToken['userId'] as String,
+        email: decodedToken['email'] as String,
+        contactNumberType: decodedToken['contactNumberType'] as int,
+        mobile: decodedToken['mobile'] as String,
+        contactNumber: "",
+      );
+    } catch (err) {
+      return MyGoldUser(
+        userId: "",
+        email: "",
+        contactNumberType: 1,
+        mobile: "",
+        contactNumber: "",
+      );
+    }
   }
 }

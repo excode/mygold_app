@@ -6,7 +6,8 @@ import 'package:mygold/realm/realm_services.dart';
 
 final GetIt getIt = GetIt.instance;
 
-void setupLocator() {
+Future<void> setupLocator() async {
+  /*
   CConfig realmConfig = CConfig.getConfig();
   // Register the services as lazy singletons
   getIt.registerLazySingleton<AppServices>(
@@ -14,6 +15,24 @@ void setupLocator() {
   getIt.registerLazySingleton<RealmServices>(
       () => RealmServices(getIt<AppServices>().app));
 
+  getIt.registerLazySingleton<AppNotifier>(() => AppNotifier());
+  getIt.registerLazySingleton<MyGoldService>(() => MyGoldService());
+  */
+  CConfig realmConfig = CConfig.getConfig();
+
+  // Register AppServices and ensure initialization
+  getIt.registerSingleton<AppServices>(
+    AppServices(realmConfig.appId, realmConfig.baseUrl),
+  );
+  final appServices = getIt<AppServices>();
+  await appServices
+      .initialize(); // Add an async initialization method if needed
+
+  // Register RealmServices after AppServices is ready
+  getIt.registerLazySingleton<RealmServices>(
+      () => RealmServices(appServices.app));
+
+  // Register other services
   getIt.registerLazySingleton<AppNotifier>(() => AppNotifier());
   getIt.registerLazySingleton<MyGoldService>(() => MyGoldService());
 }

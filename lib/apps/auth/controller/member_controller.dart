@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:mygold/apps/auth/login1_screen.dart';
 import 'package:mygold/apps/auth/otp_verification_screen.dart';
 import 'package:mygold/apps/auth/reset_password1_screen.dart';
@@ -6,6 +7,7 @@ import 'package:mygold/apps/mygold/views/dashboard.dart';
 //import 'package:mygold/full_apps/other/homemade/views/home_screen.dart';
 import 'package:mygold/helpers/extensions/extensions.dart';
 import 'package:mygold/helpers/extensions/string.dart';
+import 'package:mygold/realm/realm_services.dart';
 import 'package:mygold/utils/LocalStore.dart';
 import 'package:mygold/utils/ResponseData.dart';
 import 'package:mygold/utils/apiRequest.dart';
@@ -184,6 +186,8 @@ class MemberService with ChangeNotifier {
           if (isVerified.status) {
             localStore.save(username, isVerified.data["refreshToken"]);
             localStore.save(Config.token, isVerified.data["accessToken"]);
+            final realmServices = GetIt.instance<RealmServices>();
+            realmServices.reinitializeRealm();
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) => Dashboard()),
@@ -225,7 +229,8 @@ class MemberService with ChangeNotifier {
       if (result.status) {
         localStore.save(username, result.data["refreshToken"]);
         localStore.save(Config.token, result.data["accessToken"]);
-
+        final realmServices = GetIt.instance<RealmServices>();
+        realmServices.reinitializeRealm();
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => Dashboard()),
@@ -283,7 +288,7 @@ class MemberService with ChangeNotifier {
     }
   }
 
-  void logout() async {
+  Future<void> logout() async {
     LocalStore localStore = LocalStore();
     String username = await localStore.read(Config.username);
 

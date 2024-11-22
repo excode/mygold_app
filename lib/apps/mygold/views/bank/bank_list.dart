@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mygold/apps/mygold/views/bank/add_bank.dart';
-import 'package:mygold/realm/bank/bank.dart';
 import 'package:mygold/apps/mygold/views/bank/bank_item.dart';
+import 'package:mygold/realm/bank/bank.dart';
 import 'package:mygold/realm/realm_services.dart';
 import 'package:mygold/widgets/material/extra/loading.dart';
 import 'package:provider/provider.dart';
@@ -89,7 +89,7 @@ class _BankListState extends State<BankList> {
             ),
           ],
         ),
-        realmServices.isWaiting ? Loading() : Container(),
+        realmServices.isWaiting ? const Loading() : Container(),
       ],
     );
   }

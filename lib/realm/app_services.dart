@@ -10,8 +10,8 @@ class AppServices with ChangeNotifier {
       : app = App(AppConfiguration(id, baseUrl: baseUrl)) {}
 
   Future<User> registerUserEmailPassword() async {
-    String email = "mylangunage@mygold.ai";
-    String password = "TeachMeLang!%";
+    // String email = "mylangunage@mygold.ai";
+    // String password = "TeachMeLang!%";
     EmailPasswordAuthProvider authProvider = EmailPasswordAuthProvider(app);
     // await authProvider.registerUser(email, password);
     User loggedInUser = await app.logIn(Credentials.apiKey(
@@ -21,6 +21,11 @@ class AppServices with ChangeNotifier {
     print(loggedInUser.id);
     notifyListeners();
     return loggedInUser;
+  }
+
+  Future<void> initialize() async {
+    app = App(AppConfiguration(id, baseUrl: baseUrl));
+    // Perform other initialization tasks if necessary
   }
 
   Future<void> logOut() async {

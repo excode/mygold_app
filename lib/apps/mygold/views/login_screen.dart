@@ -65,28 +65,28 @@ class _CookifyLoginScreenState extends State<CookifyLoginScreen> {
                   ),
                   hoverColor: customTheme.cookifyPrimary,
                   fillColor: customTheme.cookifyPrimary.withAlpha(40),
-                  enabledBorder: OutlineInputBorder(
+                  enabledBorder: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(
                         Radius.circular(8),
                       ),
                       borderSide: BorderSide.none),
-                  border: OutlineInputBorder(
+                  border: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(
                         Radius.circular(8),
                       ),
                       borderSide: BorderSide.none),
-                  disabledBorder: OutlineInputBorder(
+                  disabledBorder: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(
                         Radius.circular(8),
                       ),
                       borderSide: BorderSide.none),
-                  errorBorder: OutlineInputBorder(
+                  errorBorder: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(
                         Radius.circular(8),
                       ),
                       borderSide: BorderSide.none),
                   contentPadding: MySpacing.all(16),
-                  prefixIcon: Icon(
+                  prefixIcon: const Icon(
                     LucideIcons.mail,
                     size: 20,
                   ),
@@ -114,28 +114,28 @@ class _CookifyLoginScreenState extends State<CookifyLoginScreen> {
                     fontWeight: 600,
                   ),
                   fillColor: customTheme.cookifyPrimary.withAlpha(40),
-                  enabledBorder: OutlineInputBorder(
+                  enabledBorder: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(
                         Radius.circular(8),
                       ),
                       borderSide: BorderSide.none),
-                  border: OutlineInputBorder(
+                  border: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(
                         Radius.circular(8),
                       ),
                       borderSide: BorderSide.none),
-                  disabledBorder: OutlineInputBorder(
+                  disabledBorder: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(
                         Radius.circular(8),
                       ),
                       borderSide: BorderSide.none),
-                  errorBorder: OutlineInputBorder(
+                  errorBorder: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(
                         Radius.circular(8),
                       ),
                       borderSide: BorderSide.none),
                   contentPadding: MySpacing.all(16),
-                  prefixIcon: Icon(
+                  prefixIcon: const Icon(
                     LucideIcons.lock,
                     size: 20,
                   ),

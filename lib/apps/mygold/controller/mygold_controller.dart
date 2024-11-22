@@ -180,6 +180,7 @@ class MyGoldService with ChangeNotifier {
       ResponseData result = await apiRequest.send();
       loading = false;
       notifyListeners();
+      print(result.status);
       if (result.status) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

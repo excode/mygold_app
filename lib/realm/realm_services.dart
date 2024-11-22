@@ -41,19 +41,21 @@ class RealmServices with ChangeNotifier {
 
   Future<void> updateSubscriptions() async {
     myGoldUser = await MyGoldUser.fromSecureStorage();
-    realm.subscriptions.update((mutableSubscriptions) {
-      mutableSubscriptions.clear();
-      print("WELCOME");
-      print(myGoldUser?.email);
-      mutableSubscriptions.add(
-          realm.query<Lang>(r'owner_id == $0', [currentUser?.id]),
-          name: queryMyItemsName);
-      mutableSubscriptions.add(
-          realm.query<Banks>(r'createby == $0', [myGoldUser?.email]),
-          name: queryMyBankName);
-    });
+    if (myGoldUser?.userId != "") {
+      realm.subscriptions.update((mutableSubscriptions) {
+        mutableSubscriptions.clear();
+        print("WELCOME");
+        print(myGoldUser?.email);
+        mutableSubscriptions.add(
+            realm.query<Lang>(r'owner_id == $0', [currentUser?.id]),
+            name: queryMyItemsName);
+        mutableSubscriptions.add(
+            realm.query<Banks>(r'createby == $0', [myGoldUser?.email]),
+            name: queryMyBankName);
+      });
 
-    await realm.subscriptions.waitForSynchronization();
+      await realm.subscriptions.waitForSynchronization();
+    }
   }
 
   Future<void> sessionSwitch() async {
@@ -143,5 +145,22 @@ class RealmServices with ChangeNotifier {
   Future<List<T>> getList<T extends RealmObject>() async {
     final list = realm.all<T>();
     return list.toList();
+  }
+
+  void reinitializeRealm() {
+    //if (currentUser != user) {
+    // Close the previous Realm instance
+    realm.close();
+
+    // Update the current user
+    //currentUser = user;
+
+    // Recreate the Realm instance
+    realm = Realm(
+        Configuration.flexibleSync(currentUser!, [Lang.schema, Banks.schema]));
+
+    // Update subscriptions for the new user
+    updateSubscriptions();
+    //}
   }
 }

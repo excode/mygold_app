@@ -31,7 +31,8 @@ class ApiRequest {
       "Content-Type": "application/json",
       "project_code": Config.projectCode
     };
-
+    print("PATH=====>");
+    print(url.host);
     if (secured) {
       LocalStore localStore = LocalStore();
       var storeValue = await localStore.read(Config.token, isList: false);
